@@ -16,7 +16,10 @@ import Typography from '@mui/material/Typography';
 
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About'];
+const navItems = [
+    { name: 'Home', href: '/'}, 
+    { name:'About', href: '/about'}
+];
 
 export default function Navbar() {
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -32,10 +35,10 @@ export default function Navbar() {
             </Typography>
             <Divider />
             <List>
-            {navItems.map((item) => (
-                <ListItem key={item} disablePadding>
-                <ListItemButton sx={{ textAlign: 'center' }}>
-                    <ListItemText primary={item} />
+            {navItems.map((item, index) => (
+                <ListItem key={index} disablePadding>
+                <ListItemButton sx={{ textAlign: 'center' }} href={item.href}>
+                    <ListItemText primary={item.name} />
                 </ListItemButton>
                 </ListItem>
             ))}
