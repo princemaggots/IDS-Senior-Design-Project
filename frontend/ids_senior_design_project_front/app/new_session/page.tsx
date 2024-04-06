@@ -1,32 +1,13 @@
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { algorithms } from '../lib/data';
 
-const algorithms = [
-    { 
-        header: 'LCCDE', 
-        subHeader: 'Leader Class and Confidence Decision Ensemble', 
-        description: 'an ensemble IDS, utilizing XGBoost, LightGBM, and CatBoost to select the best model for each attack class based on performance. It then uses these models and their confidence values for detection decisions.',
-        href: './new_session/configure/lccde'
-    },
-    { 
-        header: 'MTH', 
-        subHeader: 'Multi-Tiered Hybrid', 
-        description: 'an ensemble IDS, utilizing XGBoost, LightGBM, and CatBoost to select the best model for each attack class based on performance. It then uses these models and their confidence values for detection decisions.',
-        href: './new_session/configure/mth'
-    },
-    { 
-        header: 'Tree-based', 
-        subHeader: 'Tree-based Intelligent IDS', 
-        description: 'an ensemble IDS that leverages decision tree, random forest, extra trees, and XGBoost to detect intrusions in both intra-vehicle and external communication networks.',
-        href: './new_session/configure/tree_based'
-    }
-];
 
 export default function page(){
     return (
         <div>
-            <p className="text-xl">Select algorithm to test</p>
+            <p className="text-xl"><strong>Select algorithm to test</strong></p>
             {algorithms.map((algorithm, index) => {
                 return (
                     <Card key={index} className='mt-8'>
@@ -43,6 +24,7 @@ export default function page(){
                     </Card>
                 );
             })}
+            <Button variant="outlined" href='/' className='mt-6'>Go Back</Button>
         </div>
     );
 }

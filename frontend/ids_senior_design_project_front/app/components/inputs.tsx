@@ -1,12 +1,18 @@
-import { SelectInputProps, NumberInputProps, CheckInputProps } from '../lib/definitions';
+'use client'
 
-export function NumberInput({label, min, max, step, defaultValue}: NumberInputProps){
+import { SelectInputProps, NumberInputProps, CheckInputProps } from '../lib/definitions';
+import InfoDialog from './info_dialog';
+
+export function NumberInput({type, description, label, min, max, step, defaultValue}: NumberInputProps){
     return (
         <div className='flex flex-col gap-2 my-4 '>
-            <label htmlFor={label}>{label}</label>
+            <div className='flex justify-between'>
+                <label htmlFor={label}>{label}</label>
+                <InfoDialog prop_name={label} prop_description={description}/>
+            </div>
             <input 
                 type="number" 
-                id={label} 
+                id={type} 
                 name={label} 
                 min={min} 
                 max={max} 
@@ -27,10 +33,13 @@ export function CheckInput({label}: CheckInputProps){
     );
 }
 
-export function SelectInput({label, values}: SelectInputProps){
+export function SelectInput({type, description, label, values}: SelectInputProps){
     return (
         <div className="w-1/5 flex flex-col gap-2 my-4">
-            <label htmlFor="dataset">{label}</label>
+            <div className='flex justify-between'>
+                <label htmlFor="dataset">{label}</label>
+                <InfoDialog prop_name={label} prop_description={description}/>
+            </div>
             <select className="bg-[#F1F2F6] px-4 rounded-md h-10 focus:outline-none focus:ring-2 focus:ring-[#1976D2] focus:border-transparent">
                 {values.map((value: string) => (
                     <option key={value} value={value} className='mt-2 rounded-none'>{value}</option>

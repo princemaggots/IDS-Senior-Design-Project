@@ -1,17 +1,19 @@
-import * as React from 'react';
+'use client'
+
 import HistoryTable from './components/history_table';
 import Button from '@mui/material/Button';
 
 export default function Home() {
+
   return (
     <div className='flex flex-col justify-center'>
-      <div className='flex justify-around'>
+      <p className='text-xl mb-4'> <strong>Home</strong></p>
+      <div className='flex justify-around mb-10 '>
         <Button variant="contained" href="./new_session">Start a new session</Button>
         <Button variant="contained" href='./past_session'>Load a past session</Button>
       </div>
-      <div className='mt-10 w-full h-full flex justify-center'>
-        <HistoryTable />
-      </div>
+      <p className='text-gray-400 text-xs'>*Hover over each table header cell to sort the records</p>
+      <HistoryTable />
     </div>
   );
 }

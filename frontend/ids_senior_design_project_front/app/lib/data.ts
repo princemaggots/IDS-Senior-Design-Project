@@ -1,0 +1,246 @@
+import { GridColDef } from '@mui/x-data-grid';
+
+export const columns: GridColDef[] = [
+    { field: 'id', headerName: 'ID', width: 100 },
+    { field: 'algorithm', headerName: 'Algorithm', width: 160 },
+    { field: 'dataset', headerName: 'Dataset', width: 160 },
+    { field: 'date', headerName: 'Date', width: 160 },
+    { field: 'precision', headerName: 'Precision', type: 'number', width: 160 },
+    { field: 'recall', headerName: 'Recall', type: 'number', width: 160 },
+    { field: 'f1', headerName: 'F1 Score', type: 'number', width: 160 },
+];
+
+export const algorithms = [
+    { 
+        header: 'LCCDE', 
+        subHeader: 'Leader Class and Confidence Decision Ensemble', 
+        description: 'an ensemble IDS, utilizing XGBoost, LightGBM, and CatBoost to select the best model for each attack class based on performance. It then uses these models and their confidence values for detection decisions.',
+        href: './new_session/configure/lccde'
+    },
+    { 
+        header: 'MTH', 
+        subHeader: 'Multi-Tiered Hybrid', 
+        description: 'an ensemble IDS, utilizing XGBoost, LightGBM, and CatBoost to select the best model for each attack class based on performance. It then uses these models and their confidence values for detection decisions.',
+        href: './new_session/configure/mth'
+    },
+    { 
+        header: 'Tree-based', 
+        subHeader: 'Tree-based Intelligent IDS', 
+        description: 'an ensemble IDS that leverages decision tree, random forest, extra trees, and XGBoost to detect intrusions in both intra-vehicle and external communication networks.',
+        href: './new_session/configure/tree_based'
+    }
+];
+
+export const datasetFields = {
+    type: 'select',
+    description: 'dataset',
+    label: 'Select Dataset',
+    values: ['CICIDS2017', 'Car-Hacking'],
+}
+
+export const treeBasedInputFields = [
+    {
+        type: 'missingVals',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'Missing Values',
+        min: 0,
+        max: 1,
+        step: 0.1,
+        defaultValue: 0.2,
+    },
+    {
+        type: 'dataRatio',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'Data Ratio(Test data)',
+        min: 0,
+        max: 1,
+        step: 0.1,
+        defaultValue: 0.7,
+    },
+    {
+        type: 'randomStateDataSplit',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'Random State(Data Split)',
+        min: 0,
+        max: 1000,
+        step: 1,
+        defaultValue: 42,
+    },
+    {
+        type: 'samplingStrat',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'Sampling Strategy',
+        min: 0,
+        max: 1,
+        step: 0.1,
+        defaultValue: 0.3,
+    },
+    {
+        type: 'randomStateDT',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'Random State(Decision Tree)',
+        min: 0,
+        max: 1000,
+        step: 1,
+        defaultValue: 42,
+    },
+    {
+        type: 'randomStateRF',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'Random State(Random Forest)',
+        min: 0,
+        max: 1000,
+        step: 1,
+        defaultValue: 42,
+    },
+    {
+        type: 'randomStateET',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'Random Strategy(Extra Tree)',
+        min: 0,
+        max: 1000,
+        step: 1,
+        defaultValue: 42,
+    },
+    {
+        type: 'nEst',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'n-Estimator',
+        min: 1,
+        max: 1000,
+        step: 1,
+        defaultValue: 100,
+    },
+    {
+        type: 'threshold',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'Feature Threshold',
+        min: 0,
+        max: 1,
+        step: 0.01,
+        defaultValue: 0.5,
+    },
+];
+
+export const mthInputFields = [
+    {
+        type: 'fcbfk',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'FCBF-K',
+        min: 0,
+        max: 1,
+        step: 0.1,
+        defaultValue: 0.5,
+    },
+    {
+        type: 'dataRatio',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'Data Ratio(Test data)',
+        min: 0,
+        max: 1,
+        step: 0.1,
+        defaultValue: 0.7,
+    },
+    {
+        type: 'samplingStrat2',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'Sampling Strategy(class 2)',
+        min: 0,
+        max: 1,
+        step: 0.1,
+        defaultValue: 0.3,
+    },
+    {   
+        type: 'samplingStrat4',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'Sampling Strategy(class 4)',
+        min: 0,
+        max: 1,
+        step: 0.1,
+        defaultValue: 0.5,
+    },
+    {
+        type: 'nEstXGB1',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'n-Esimator(XGBoost 1)',
+        min: 1,
+        max: 1000,
+        step: 1,
+        defaultValue: 100,
+    },
+    {
+        type: 'nEstXGB2',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'n-Esimator(XGBoost 2)',
+        min: 1,
+        max: 1000,
+        step: 1,
+        defaultValue: 200,
+    },
+    {
+        type: 'nEstXGB3',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'n-Esimator(XGBoost 3)',
+        min: 1,
+        max: 1000,
+        step: 1,
+        defaultValue: 300,
+    },
+    {
+        type: 'nEstRF',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'n-Esimator(Random Forest)',
+        min: 1,
+        max: 1000,
+        step: 1,
+        defaultValue: 400,
+    },
+    {
+        type: 'nEstET',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'n-Esimator(Extra Tree)',
+        min: 1,
+        max: 1000,
+        step: 1,
+        defaultValue: 500,
+    },
+    {
+        type: 'threshold',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'Feature Threshold',
+        min: 0,
+        max: 1,
+        step: 0.01,
+        defaultValue: 0.5,
+    },
+];
+
+export const lccdeInputFields = [
+    {
+        type: 'dataRatio',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'Data Ratio(Test data)',
+        min: 0,
+        max: 1,
+        step: 0.1,
+        defaultValue: 0.7,
+    },
+    {
+        type: 'samplingStrat2',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'Sampling Strategy(class 2)',
+        min: 0,
+        max: 1,
+        step: 0.1,
+        defaultValue: 0.3,
+    },
+    {
+        type: 'samplingStrat4',
+        description: 'Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  ',
+        label: 'Sampling Strategy(class 4)',
+        min: 0,
+        max: 1,
+        step: 0.1,
+        defaultValue: 0.5,
+    },
+];

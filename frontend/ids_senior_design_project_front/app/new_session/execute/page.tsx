@@ -1,5 +1,5 @@
-import LinearWithValueLabel from '@/app/components/linear-progress';
-import CircularIndeterminate from '@/app/components/circular-indeterminate';
+import LinearWithValueLabel from '@/app/components/linear_progress';
+import CircularIndeterminate from '@/app/components/circular_indeterminate';
 
 export default function page(){
     return (

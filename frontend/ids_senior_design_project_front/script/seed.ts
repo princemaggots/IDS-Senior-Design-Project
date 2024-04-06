@@ -1,16 +1,3 @@
-import { GridColDef } from '@mui/x-data-grid';
-
-// column data for history table in the landing page
-export const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 100 },
-    { field: 'algorithm', headerName: 'Algorithm', width: 200 },
-    { field: 'dataset', headerName: 'Dataset', width: 200 },
-    { field: 'date', headerName: 'Date', width: 200 },
-    { field: 'precision', headerName: 'Precision', type: 'number', width: 100 },
-    { field: 'recall', headerName: 'Recall', type: 'number', width: 160 },
-    { field: 'f1', headerName: 'F1 Score', type: 'number', width: 160 },
-];
-
 // row data for history table in the landing page
 export const rows = [
     { id: 1, algorithm: 'LCCDE', dataset: 'CICIDS2017', date: 'April 2, 2024', precision: 0.9, recall: 0.8, f1: 0.85 },

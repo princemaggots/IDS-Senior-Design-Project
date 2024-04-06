@@ -1,18 +1,16 @@
-import { SelectInput, CheckInput, NumberInput } from "./inputs";
-import Button from '@mui/material/Button';
+import { SelectInput, NumberInput } from "./inputs";
+import { datasetFields } from '../lib/data';
 
-export default function Form(){
+export default function Form({dataInputFields}: {dataInputFields: any}){
     return (
-        <form>
-            <SelectInput label={'Select Dataset'} values={['CICIDS2017', 'Car-Hacking']}/>
-            <div className="flex gap-10">
-                <CheckInput label={'Display attack labels'}/>
-                <CheckInput label={'Display class count'}/>
+        <form className="flex flex-col">
+            <SelectInput type={datasetFields.type} description={datasetFields.description} label={datasetFields.label} values={datasetFields.values}/>
+            <div className="flex flex-wrap gap-x-10 my-10">
+                {dataInputFields.map((input:any, index: number) => (
+                    <NumberInput key={index} {...input}/>
+                ))}
             </div>
-            <div className="flex flex-wrap gap-10">
-                <NumberInput label={'Number of clusters'} min={1} max={30} step={1} defaultValue={20}/>
-            </div>
-            <Button variant="contained">Run</Button>
+            <button className="bg-primary rounded-[5px] h-8 w-24 text-white self-end shadow-lg hover:bg-[#0e5499] transition-colors duration-[400ms]">Run</button>
         </form>
     );
 }
