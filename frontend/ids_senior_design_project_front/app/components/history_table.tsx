@@ -5,11 +5,22 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { rows } from '@/script/seed';
 import { usePathname } from 'next/navigation'
 import { columns } from '@/app/lib/data';
+import { useState, useEffect } from 'react';
+import { HistoryRowProps } from '@/app/lib/definitions';
 
 
 export default function HistoryTable() {
     const pathname = usePathname()
     const isPastSession = pathname === '/past_session';
+
+    const [historyData, setHistoryData] = useState<HistoryRowProps[]>([]);
+
+    useEffect(() => {
+        fetch('https://66157f68b8b8e32ffc7b1be3.mockapi.io/api/records')
+        .then(response => response.json())
+        .then(data => setHistoryData(data))
+        .catch(error => console.error('Error fetching data:', error));
+    }, []);
 
     const columnsWithButton: GridColDef[] = [
         ...columns,
@@ -31,13 +42,14 @@ export default function HistoryTable() {
     function handleButtonClick(row: any) {
         console.log(row)
     }
-
+    // replace 'historyData' with 'rows' to test with seed data
     return (
         <div className='w-full h-[371px] flex justify-center'>
             <DataGrid
-                rows={rows} 
+                rows={historyData} 
                 columns={isPastSession ? columnsWithButton : columns}
                 disableRowSelectionOnClick
+                pageSizeOptions={[5, 10, 20]}
                 initialState={{
                     pagination: {
                         paginationModel: { page: 0, pageSize: 5 },

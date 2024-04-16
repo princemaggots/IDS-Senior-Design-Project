@@ -1,14 +1,19 @@
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+'use client'
+
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Paper from '@mui/material/Paper';
 import { useState } from 'react';
 import Draggable from 'react-draggable';
-import { DialogProps } from '../lib/definitions';
+
+type ConfirmButtonProp = {
+    text: string;
+    className?: string;
+    prompt: string;
+    href: string;
+}
 
 function PaperComponent(props: any) {
     return (
@@ -16,12 +21,12 @@ function PaperComponent(props: any) {
         handle="#draggable-dialog-title"
         cancel={'[class*="MuiDialogContent-root"]'}
         >
-        <Paper {...props} />
+            <Paper {...props} />
         </Draggable>
     );
 }
 
-export default function InfoDialog({propName, propDescription}: DialogProps) {
+export default function ConfirmButton({ text, className, prompt, href }: ConfirmButtonProp) {
     const [open, setOpen] = useState(false);
 
     const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -31,9 +36,7 @@ export default function InfoDialog({propName, propDescription}: DialogProps) {
 
     return (
         <>
-            <button onClick={handleOpen} >
-                <InfoOutlinedIcon style={{ width: '1rem', height: '1rem' }} className='ml-auto text-gray-400 hover:text-black transition-colors duration-300'/>
-            </button>
+            <Button className={className} variant='outlined' onClick={handleOpen}>{text}</Button>
             <Dialog
                 open={open}
                 onClose={handleOpen}
@@ -41,16 +44,14 @@ export default function InfoDialog({propName, propDescription}: DialogProps) {
                 aria-labelledby="draggable-dialog-title"
             >
                 <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-                    {propName}
-                    </DialogTitle>
-                        <DialogContent>
-                            <DialogContentText>
-                                {propDescription} 
-                            </DialogContentText>
-                        </DialogContent>
-                    <DialogActions>
-                    <Button autoFocus onClick={handleOpen}>
-                        Close
+                    {prompt}
+                </DialogTitle>
+                <DialogActions className='flex justify-evenly'>
+                    <Button autoFocus variant='outlined' onClick={handleOpen}>
+                        Cancel
+                    </Button>
+                    <Button autoFocus variant='contained' className='bg-primary' href={href} onClick={handleOpen}>
+                        Discard
                     </Button>
                 </DialogActions>
             </Dialog>
