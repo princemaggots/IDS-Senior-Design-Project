@@ -16,7 +16,8 @@ export default function HistoryTable() {
     const [historyData, setHistoryData] = useState<HistoryRowProps[]>([]);
 
     useEffect(() => {
-        fetch('https://66157f68b8b8e32ffc7b1be3.mockapi.io/api/records')
+        // fetch('https://66157f68b8b8e32ffc7b1be3.mockapi.io/api/records')
+        fetch('http://127.0.0.1:8000/db/get_history')
         .then(response => response.json())
         .then(data => setHistoryData(data))
         .catch(error => console.error('Error fetching data:', error));
