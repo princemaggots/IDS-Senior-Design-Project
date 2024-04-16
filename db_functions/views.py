@@ -3,6 +3,8 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from db_functions.models import Result
 from datetime import datetime
+from django.core.serializers import serialize
+
 
 @csrf_exempt
 def index(request):
@@ -20,15 +22,15 @@ def get_entry(request):
 def get_history(request):
     all_entries = Result.objects.all().order_by("id").all()
     print(all_entries)
-    
-    return HttpResponse("ok")
+    data = serialize('json', all_entries)
+    return JsonResponse(data=data, safe=False)
 
 @csrf_exempt
 def delete_entry(request):
     id = request.GET.get('entry_id')
     instance = Result.objects.filter(id = id)
     instance.delete()
-    return HttpResponse("Deleted")
+    return HttpResponse("Deleted!")
 
 @csrf_exempt
 def store_entry(request):
