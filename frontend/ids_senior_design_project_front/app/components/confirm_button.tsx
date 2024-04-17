@@ -30,8 +30,12 @@ export default function ConfirmButton({ text, className, prompt, href }: Confirm
     const [open, setOpen] = useState(false);
 
     const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault()
+        event.preventDefault();
         setOpen((prevState) => !prevState);
+    };
+
+    const handleDiscard = () => {
+        setOpen(false);
     };
 
     return (
@@ -50,7 +54,7 @@ export default function ConfirmButton({ text, className, prompt, href }: Confirm
                     <Button autoFocus variant='outlined' onClick={handleOpen}>
                         Cancel
                     </Button>
-                    <Button autoFocus variant='contained' className='bg-primary' href={href} onClick={handleOpen}>
+                    <Button autoFocus variant='contained' className='bg-primary' href={href} onClick={handleDiscard}>
                         Discard
                     </Button>
                 </DialogActions>

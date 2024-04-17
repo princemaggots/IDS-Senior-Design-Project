@@ -12,15 +12,35 @@ import { HistoryRowProps } from '@/app/lib/definitions';
 export default function HistoryTable() {
     const pathname = usePathname()
     const isPastSession = pathname === '/past_session';
-
     const [historyData, setHistoryData] = useState<HistoryRowProps[]>([]);
 
     useEffect(() => {
-        // fetch('https://66157f68b8b8e32ffc7b1be3.mockapi.io/api/records')
-        fetch('http://127.0.0.1:8000/db/get_history')
-        .then(response => response.json())
-        .then(data => setHistoryData(data))
-        .catch(error => console.error('Error fetching data:', error));
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/db/get_history');
+                const rawData = await response.json();
+                const data = JSON.parse(rawData);
+                const formattedData = data.map((item: any) => {
+                    return {
+                        id: item.pk,
+                        requestTimestamp: item.fields.request_timestamp,
+                        dataset: item.fields.dataset,
+                        date: item.fields.request_timestamp,
+                        model: item.fields.model,
+                        inputJson: item.fields.input_json,
+                        outputJson: item.fields.output_json,
+                        precision: item.fields.stack_precision,
+                        recall: item.fields.stack_recall,
+                        f1: item.fields.stack_f1,
+                    };
+                });
+                setHistoryData(formattedData);
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+        fetchData();
     }, []);
 
     const columnsWithButton: GridColDef[] = [
@@ -43,7 +63,6 @@ export default function HistoryTable() {
     function handleButtonClick(row: any) {
         console.log(row)
     }
-    // replace 'historyData' with 'rows' to test with seed data
     return (
         <div className='w-full h-[371px] flex justify-center'>
             <DataGrid

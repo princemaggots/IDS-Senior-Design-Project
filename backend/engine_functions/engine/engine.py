@@ -23,7 +23,7 @@ def runLCCDE(dataset, test_size, random_state, sampling_strat2, sampling_strat4,
     
     stack_accuracy, stack_precision, stack_recall, stack_f1, stack_class_f1 = LCCDE(X_test, y_test, m1 = lg, m2 = xg, m3 = cb, model=model)
 
-     # Comparison: The F1-scores for each base model
+    # Comparison: The F1-scores for each base model
     print("F1 of LightGBM for each type of attack: "+ str(lg_class_f1))
     print("F1 of XGBoost for each type of attack: "+ str(xg_class_f1))
     print("F1 of CatBoost for each type of attack: "+ str(cb_class_f1))

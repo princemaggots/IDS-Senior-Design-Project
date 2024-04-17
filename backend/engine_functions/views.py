@@ -1,7 +1,8 @@
 from django.http import HttpResponse, JsonResponse
 from engine_functions.engine.engine import runLCCDE
 from django.views.decorators.csrf import csrf_exempt
-import datetime
+from datetime import datetime
+import json
 
 @csrf_exempt
 def index(request):
@@ -9,36 +10,35 @@ def index(request):
 
 @csrf_exempt
 def lccde_run(request):
-    time_A = datetime.datetime.now()
+    data = json.loads(request.body)
 
-    dataset = request.GET.get('dataset')
-    test_size = float(request.GET.get('test_size'))
-    random_state = int(request.GET.get('random_state'))
-    sampling_strat2 = int(request.GET.get('sampling_strat2'))
-    sampling_strat4 = int(request.GET.get('sampling_strat4'))
+    dataset = data.get('dataset')
+    test_size = float(data.get('test_size', 0.2))
+    random_state = int(data.get('random_state', 0))
+    sampling_strat2 = int(data.get('sampling_strat2', 1000))
+    sampling_strat4 = int(data.get('sampling_strat4', 1000))
+    xg_eta = float(data.get('xg_eta', 0.3))
+    xg_max_depth = int(data.get('xg_max_depth', 6))
+    xg_subsample = float(data.get('xg_subsample', 1))
+    xg_lambda = int(data.get('xg_lambda', 1))
+    xg_alpha = int(data.get('xg_alpha', 0))
+    xg_gamma = int(data.get('xg_gamma', 0))
+    xg_colsample_bytree = float(data.get('xg_colsample_bytree', 1))
+    xg_min_child_weight = int(data.get('xg_min_child_weight', 1))
+    xg_n_estimators = int(data.get('xg_n_estimators', 1))
+    cb_iterations = int(data.get('cb_iterations', 1000))
+    cb_learning_rate = float(data.get('cb_learning_rate', 0.03))
+    cb_depth = int(data.get('cb_depth', 6))
+    cb_random_state = int(data.get('cb_random_state', 0))
+    cb_loss_function = data.get('cb_loss_function', 'MultiClass')
+    lg_boosting = data.get('lg_boosting', 'gbdt')
+    lg_learning_rate = float(data.get('lg_learning_rate', 0.1))
+    lg_lambda_l1 = float(data.get('lg_lambda_l1', 0))
+    lg_num_leaves = int(data.get('lg_num_leaves', 31))
+    lg_num_iterations = int(data.get('lg_num_iterations', 100))
+    lg_max_depth = int(data.get('lg_max_depth', -1))
 
-    xg_eta = float(request.GET.get('xg_eta'))
-    xg_max_depth = int(request.GET.get('xg_max_depth'))
-    xg_subsample = float(request.GET.get('xg_subsample'))
-    xg_lambda = int(request.GET.get('xg_lambda'))
-    xg_alpha = int(request.GET.get('xg_alpha'))
-    xg_gamma = int(request.GET.get('xg_gamma'))
-    xg_colsample_bytree = float(request.GET.get('xg_colsample_bytree'))
-    xg_min_child_weight = int(request.GET.get('xg_min_child_weight'))
-    xg_n_estimators = int(request.GET.get('xg_n_estimators'))
-
-    cb_iterations = int(request.GET.get('cb_iterations'))
-    cb_learning_rate = float(request.GET.get('cb_learning_rate'))
-    cb_depth = int(request.GET.get('cb_depth'))
-    cb_random_state = int(request.GET.get('cb_random_state'))
-    cb_loss_function = request.GET.get('cb_loss_function')
-
-    lg_boosting = request.GET.get('lg_boosting')
-    lg_learning_rate = float(request.GET.get('lg_learning_rate'))
-    lg_lambda_l1 = float(request.GET.get('lg_lambda_l1'))
-    lg_num_leaves = int(request.GET.get('lg_num_leaves'))
-    lg_num_iterations = int(request.GET.get('lg_num_iterations'))
-    lg_max_depth = int(request.GET.get('lg_max_depth'))
+    time_A = datetime.now()
 
 
  # dataset="CICIDS2017", test_size=0.2, random_state=0, sampling_strat2=1000, sampling_strat4=1000
@@ -53,7 +53,7 @@ def lccde_run(request):
     xg_confusion_matrix = xg_confusion_matrix.tolist()
     cb_confusion_matrix = cb_confusion_matrix.tolist()
 
-    time_B = datetime.datetime.now()
+    time_B = datetime.now()
 
     elapsed_time = time_B - time_A
 

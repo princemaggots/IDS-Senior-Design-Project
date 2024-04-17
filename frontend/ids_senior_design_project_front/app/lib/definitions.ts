@@ -64,3 +64,4 @@ export type ClassSubResultProps = {
     class: string;
     value: number;
 }
+

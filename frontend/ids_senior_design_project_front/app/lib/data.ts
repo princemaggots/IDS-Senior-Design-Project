@@ -31,21 +31,6 @@ export const models = [
     }
 ];
 
-export const modelToAlgorithms = {
-    lccde: ['xg', 'lg', 'cb'],
-    mth: ['xg', 'lg', 'cb'],
-    tree_based: ['dt', 'rf', 'rt', 'xb']
-};
-
-export const algorithmFullName = {
-    xg: 'XGBoost',
-    lg: 'LightGBM',
-    cb: 'CatBoost',
-    dt: 'Decision Tree',
-    rf: 'Random Forest',
-    rt: 'Extra Trees',
-};
-
 export const datasetFields = {
     name: 'dataset',
     type: 'string',
