@@ -1,12 +1,11 @@
 'use client'
 
 import { SelectInput, NumberInput } from "./inputs";
-import { datasetFields } from '../lib/data';
 import { usePathname } from 'next/navigation';
 import { useState } from "react";
 import { NumberInputProps, SelectInputProps } from "@/app/lib/definitions"
 
-export default function Form({dataInputFields, onSubmit}: {dataInputFields: any, onSubmit:any}){
+export default function ConfigForm({datasetFields, dataInputFields, onSubmit}: {datasetFields: any, dataInputFields: any, onSubmit:any}){
     const pathname = usePathname()
     const paths = pathname.split('/')
     const model = paths[paths.length - 2]

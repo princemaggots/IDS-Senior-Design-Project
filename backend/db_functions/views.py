@@ -30,7 +30,7 @@ def delete_entry(request):
     id = request.GET.get('entry_id')
     instance = Result.objects.filter(id = id)
     instance.delete()
-    return HttpResponse("Deleted!")
+    return HttpResponse({"message": "Data Successfully Deleted!"})
 
 @csrf_exempt
 def store_entry(request):
@@ -39,4 +39,4 @@ def store_entry(request):
     now = datetime.now()
     instance = Result(request_timestamp=now, runtime=request_body['output']['runtime'], dataset=request_body['input']['dataset'], model=request_body['input']['model'], input_json=str(request_body['input']), stack_precision=request_body['output']['stack_prec_score'], stack_accuracy=request_body['output']['stack_acc_score'], stack_f1=request_body['output']['stack_f1'], stack_recall=request_body['output']['stack_rec_score'], output_json=str(request_body['output']))
     instance.save()
-    return HttpResponse("Saved!")
+    return JsonResponse({"message": "Data Successfully Saved!"})

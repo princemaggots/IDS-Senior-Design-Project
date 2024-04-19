@@ -8,10 +8,11 @@ import { useRouter } from 'next/navigation';
 import { formatReturnedLCCDEData } from '@/app/lib/format';
 
 export default function Page(){
-    const searchParams = useSearchParams()
-    const input = searchParams.get('input')
-    const output = searchParams.get('output')
+    const searchParams = useSearchParams();
     const router = useRouter();
+    const input = searchParams.get('input');
+    const output = searchParams.get('output');
+    const pastOutput = searchParams.get('pastOutputData');
 
     const handleSave = async () => {
         const parsedOutput = JSON.parse(output)
@@ -40,12 +41,14 @@ export default function Page(){
             console.error('There was a problem with the fetch operation:', error);
         }
     };
-    const formattedData = formatReturnedLCCDEData(output);
+    const formattedCurrentData = formatReturnedLCCDEData(output);
+    const validJSON = pastOutput.replace(/'/g, '"');
+    const formattedPastData = formatReturnedLCCDEData(validJSON);
 
     return (
         <div>
             <p className="text-xl">Execution Result</p>
-            <ResultTables data={formattedData}/>
+            <ResultTables data={formattedCurrentData} pastData={formattedPastData}/>
             <div className='mt-8 flex'>
                 <ConfirmButton text={'Discard'} href='/' prompt='Do you want to discard the result?'/>
                 <Button variant="contained" style={{marginLeft: 'auto'}} onClick={handleSave} className='bg-primary'>Save</Button>

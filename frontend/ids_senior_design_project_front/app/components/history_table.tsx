@@ -2,17 +2,17 @@
 
 import Button from '@mui/material/Button';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { rows } from '@/script/seed';
 import { usePathname } from 'next/navigation'
 import { columns } from '@/app/lib/data';
 import { useState, useEffect } from 'react';
 import { HistoryRowProps } from '@/app/lib/definitions';
-
+import { useRouter } from 'next/navigation';
 
 export default function HistoryTable() {
     const pathname = usePathname()
     const isPastSession = pathname === '/past_session';
     const [historyData, setHistoryData] = useState<HistoryRowProps[]>([]);
+    const router = useRouter();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -43,6 +43,11 @@ export default function HistoryTable() {
         fetchData();
     }, []);
 
+    function handleButtonClick(row: any) {
+        const model = row.model;
+        router.push(`/past_session/${model}/edit_configure?output=${encodeURIComponent(row.outputJson)}&input=${encodeURIComponent(row.inputJson)}`);        
+    } 
+
     const columnsWithButton: GridColDef[] = [
         ...columns,
         {
@@ -53,16 +58,13 @@ export default function HistoryTable() {
             align: 'center',
             disableColumnMenu: true,
             renderCell: (params) => (
-                <Button variant="contained" className='bg-primary'onClick={() => handleButtonClick(params.row)}>
+                <Button variant="contained" className='bg-primary' onClick={() => handleButtonClick(params.row)}>
                     Load
                 </Button>
             ),
         },
     ];
-    
-    function handleButtonClick(row: any) {
-        console.log(row)
-    }
+
     return (
         <div className='w-full h-[371px] flex justify-center'>
             <DataGrid
