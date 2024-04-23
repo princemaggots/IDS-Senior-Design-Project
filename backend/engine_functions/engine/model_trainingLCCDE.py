@@ -55,11 +55,11 @@ def select_leading_models(lg_f1, xg_f1, cb_f1, models):
     return leading_models
 
 def train_lightgbm(X_train, y_train, X_test, y_test, lg_boosting, lg_learning_rate, lg_lambda_l1, lg_num_leaves, lg_num_iterations,lg_max_depth):
-    lg = lgb.LGBMClassifier(boosting=lg_boosting, learning_rate=lg_learning_rate, lambda_l1=lg_lambda_l1, num_leaves=lg_num_leaves, num_iterations=lg_num_iterations, max_depth=lg_max_depth)
+    lg = lgb.LGBMClassifier(verbosity=-1, boosting_type=lg_boosting, learning_rate=lg_learning_rate, lambda_l1=lg_lambda_l1, num_leaves=lg_num_leaves, num_iterations=lg_num_iterations, max_depth=lg_max_depth)
     class_f1, class_report, acc_score, prec_score, rec_score, f1, confusion_matrix = train_and_evaluate(lg, X_train, y_train, X_test, y_test, 'LightGBM')
     return lg, class_f1, class_report, acc_score, prec_score, rec_score, f1, confusion_matrix
 
-def train_xgboost(X_train, y_train, X_test, y_test, xg_eta, xg_max_depth, xg_subsample, xg_lambda, xg_alpha, xg_gamma, xg_colsample_bytree, xg_min_child_weight, xg_n_estimators):
+def train_xgboost_lccde(X_train, y_train, X_test, y_test, xg_eta, xg_max_depth, xg_subsample, xg_lambda, xg_alpha, xg_gamma, xg_colsample_bytree, xg_min_child_weight, xg_n_estimators):
     xg = xgb.XGBClassifier(eta=xg_eta, max_depth=xg_max_depth, subsample=xg_subsample, alpha=xg_alpha, gamma=xg_gamma, colsample_bytree=xg_colsample_bytree, min_child_weight=xg_min_child_weight, n_estimators=xg_n_estimators, reg_lambda=xg_lambda)
     class_f1, class_report, acc_score, prec_score, rec_score, f1, confusion_matrix = train_and_evaluate(xg, X_train, y_train, X_test, y_test, 'XGBoost')
     return xg, class_f1, class_report, acc_score, prec_score, rec_score, f1, confusion_matrix

@@ -19,7 +19,11 @@ def split_data(dataset, test_size=0.2, random_state=0):
     - y_train: pandas.Series, the training target variable.
     - y_test: pandas.Series, the testing target variable.
     """
-    df = pd.read_csv("./engine_functions/engine/data/CICIDS2017_sample_km.csv")
+    if dataset == "CICIDS2017":
+        filepath = "./engine_functions/engine/data/CICIDS2017_sample.csv"
+    else:
+        filepath = "./engine_functions/engine/data/CICIDS2017_sample_km.csv"
+    df = pd.read_csv(filepath)
     train_size = 1 - test_size
     X = df.drop(['Label'], axis=1)
     y = df['Label']

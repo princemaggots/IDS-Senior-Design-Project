@@ -1,5 +1,5 @@
 from django.http import HttpResponse, JsonResponse
-from engine_functions.engine.engine import runLCCDE
+from engine_functions.engine.engine import runLCCDE, runTreeBased, runMTH
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 import json
@@ -10,33 +10,31 @@ def index(request):
 
 @csrf_exempt
 def lccde_run(request):
-    data = json.loads(request.body)
-
-    dataset = data.get('dataset')
-    test_size = float(data.get('test_size', 0.2))
-    random_state = int(data.get('random_state', 0))
-    sampling_strat2 = int(data.get('sampling_strat2', 1000))
-    sampling_strat4 = int(data.get('sampling_strat4', 1000))
-    xg_eta = float(data.get('xg_eta', 0.3))
-    xg_max_depth = int(data.get('xg_max_depth', 6))
-    xg_subsample = float(data.get('xg_subsample', 1))
-    xg_lambda = int(data.get('xg_lambda', 1))
-    xg_alpha = int(data.get('xg_alpha', 0))
-    xg_gamma = int(data.get('xg_gamma', 0))
-    xg_colsample_bytree = float(data.get('xg_colsample_bytree', 1))
-    xg_min_child_weight = int(data.get('xg_min_child_weight', 1))
-    xg_n_estimators = int(data.get('xg_n_estimators', 1))
-    cb_iterations = int(data.get('cb_iterations', 1000))
-    cb_learning_rate = float(data.get('cb_learning_rate', 0.03))
-    cb_depth = int(data.get('cb_depth', 6))
-    cb_random_state = int(data.get('cb_random_state', 0))
-    cb_loss_function = data.get('cb_loss_function', 'MultiClass')
-    lg_boosting = data.get('lg_boosting', 'gbdt')
-    lg_learning_rate = float(data.get('lg_learning_rate', 0.1))
-    lg_lambda_l1 = float(data.get('lg_lambda_l1', 0))
-    lg_num_leaves = int(data.get('lg_num_leaves', 31))
-    lg_num_iterations = int(data.get('lg_num_iterations', 100))
-    lg_max_depth = int(data.get('lg_max_depth', -1))
+    dataset = request.GET.get('dataset')
+    test_size = float(request.GET.get('test_size'))
+    random_state = int(request.GET.get('random_state'))
+    sampling_strat2 = int(request.GET.get('sampling_strat2'))
+    sampling_strat4 = int(request.GET.get('sampling_strat4'))
+    xg_eta = float(request.GET.get('xg_eta'))
+    xg_max_depth = int(request.GET.get('xg_max_depth'))
+    xg_subsample = float(request.GET.get('xg_subsample'))
+    xg_lambda = int(request.GET.get('xg_lambda'))
+    xg_alpha = int(request.GET.get('xg_alpha'))
+    xg_gamma = int(request.GET.get('xg_gamma'))
+    xg_colsample_bytree = float(request.GET.get('xg_colsample_bytree'))
+    xg_min_child_weight = int(request.GET.get('xg_min_child_weight'))
+    xg_n_estimators = int(request.GET.get('xg_n_estimators'))
+    cb_iterations = int(request.GET.get('cb_iterations'))
+    cb_learning_rate = float(request.GET.get('cb_learning_rate'))
+    cb_depth = int(request.GET.get('cb_depth', 6))
+    cb_random_state = int(request.GET.get('cb_random_state'))
+    cb_loss_function = request.GET.get('cb_loss_function')
+    lg_boosting = request.GET.get('lg_boosting')
+    lg_learning_rate = float(request.GET.get('lg_learning_rate'))
+    lg_lambda_l1 = float(request.GET.get('lg_lambda_l1'))
+    lg_num_leaves = int(request.GET.get('lg_num_leaves'))
+    lg_num_iterations = int(request.GET.get('lg_num_iterations'))
+    lg_max_depth = int(request.GET.get('lg_max_depth'))
 
     time_A = datetime.now()
 
@@ -95,9 +93,216 @@ def lccde_run(request):
 
     # return HttpResponse("I mean, I think it ran")
 
-
+@csrf_exempt
 def mth_run(request):
-    pass
+    dataset = request.GET.get('dataset')
+    fcbf_k = request.GET.get('fcbf_k')
+    test_size = float(request.GET.get('test_size'))
+    feature_selection_threshold = float(request.GET.get('feature_selection_threshold'))
+    dt_criterion = request.GET.get('dt_criterion')
+    dt_splitter = request.GET.get('dt_splitter')
+    dt_max_depth = request.GET.get('dt_max_depth')
+    dt_min_samples_split = request.GET.get('dt_min_samples_split')
+    dt_min_samples_leaf = request.GET.get('dt_min_samples_leaf')
+    dt_min_weight_fraction_leaf = float(request.GET.get('dt_min_weight_fraction_leaf'))
+    dt_max_features = request.GET.get('dt_max_features')
+    dt_random_state = int(request.GET.get('dt_random_state'))
+    dt_max_leaf_nodes = request.GET.get('dt_max_leaf_nodes')
+    xg_eta = float(request.GET.get('xg_eta'))
+    xg_max_depth = request.GET.get('xg_max_depth')
+    xg_subsample = float(request.GET.get('xg_subsample'))
+    xg_lambda = int(request.GET.get('xg_lambda'))
+    xg_alpha = int(request.GET.get('xg_alpha'))
+    xg_gamma = int(request.GET.get('xg_gamma'))
+    xg_colsample_bytree = float(request.GET.get('xg_colsample_bytree'))
+    xg_min_child_weight = int(request.GET.get('xg_min_child_weight'))
+    xg_n_estimators = int(request.GET.get('xg_n_estimators'))
+    rf_n_estimators = int(request.GET.get('rf_n_estimators'))
+    rf_criterion = request.GET.get('rf_criterion')
+    rf_max_depth = request.GET.get('rf_max_depth')
+    rf_min_samples_split = request.GET.get('rf_min_samples_split')
+    rf_min_samples_leaf = request.GET.get('rf_min_samples_leaf')
+    rf_min_weight_fractions_leaf = float(request.GET.get('rf_min_weight_fractions_leaf'))
+    rf_max_features = request.GET.get('rf_max_features')
+    rf_max_leaf_nodes = request.GET.get('rf_max_leaf_nodes')
+    rf_random_state = int(request.GET.get('rf_random_state'))
+    et_n_estimators = int(request.GET.get('et_n_estimators'))
+    et_criterion = request.GET.get('et_criterion')
+    et_max_depth = request.GET.get('et_max_depth')
+    et_min_samples_split = request.GET.get('et_min_samples_split')
+    et_min_samples_leaf = request.GET.get('et_min_samples_leaf')
+    et_min_weight_fractions_leaf = float(request.GET.get('et_min_weight_fractions_leaf'))
+    et_max_features = request.GET.get('et_max_features')
+    et_max_leaf_nodes = request.GET.get('et_max_leaf_nodes')
+    et_random_state = int(request.GET.get('et_random_state'))
 
+    time_A = datetime.now()
+
+    dt_class_f1, dt_class_report, dt_acc_score, dt_prec_score, dt_rec_score, dt_f1, dt_conf_mat, rf_class_f1, rf_class_report, rf_acc_score, rf_prec_score, rf_rec_score, rf_f1, rf_conf_mat, et_class_f1, et_class_report, et_acc_score, et_prec_score, et_rec_score, et_f1, et_conf_mat, xg_class_f1, xg_class_report, xg_acc_score, xg_prec_score, xg_rec_score, xg_f1, xg_conf_mat, stack_class_f1, stack_class_report, stack_acc_score, stack_prec_score, stack_rec_score, stack_f1, stack_conf_mat = runMTH(test_size, dataset, feature_selection_threshold, fcbf_k, dt_criterion, dt_splitter, dt_max_depth, dt_min_samples_split, dt_min_samples_leaf, dt_min_weight_fraction_leaf, dt_max_features, dt_random_state, dt_max_leaf_nodes, rf_n_estimators, rf_criterion, rf_max_depth, rf_min_samples_split, rf_min_samples_leaf, rf_min_weight_fractions_leaf, rf_max_features, rf_max_leaf_nodes, rf_random_state, et_n_estimators, et_criterion, et_max_depth, et_min_samples_split, et_min_samples_leaf, et_min_weight_fractions_leaf, et_max_features, et_max_leaf_nodes, et_random_state, xg_eta, xg_max_depth, xg_subsample, xg_lambda, xg_alpha, xg_gamma, xg_colsample_bytree, xg_min_child_weight, xg_n_estimators)
+
+    dt_class_f1 = dt_class_f1.tolist()
+    rf_class_f1 = rf_class_f1.tolist()
+    et_class_f1 = et_class_f1.tolist()
+    xg_class_f1 = xg_class_f1.tolist()
+    stack_class_f1 = stack_class_f1.tolist()
+    dt_conf_mat = dt_conf_mat.tolist()
+    et_conf_mat = et_conf_mat.tolist()
+    rf_conf_mat = rf_conf_mat.tolist()
+    xg_conf_mat = xg_conf_mat.tolist()
+
+    time_B = datetime.now()
+    elapsed_time = time_B - time_A
+
+    data = {
+        'dt_class_f1': dt_class_f1,
+        'dt_class_report': dt_class_report,
+        'dt_acc_score': dt_acc_score,
+        'dt_prec_score': dt_prec_score,
+        'dt_rec_score': dt_rec_score,
+        'dt_f1': dt_f1,
+        'dt_confusion_matrix': dt_conf_mat,
+
+        'rf_class_f1': rf_class_f1,
+        'rf_class_report': rf_class_report,
+        'rf_acc_score': rf_acc_score,
+        'rf_prec_score': rf_prec_score,
+        'rf_rec_score': rf_rec_score,
+        'rf_f1': rf_f1,
+        'rf_confusion_matrix': rf_conf_mat,
+
+        'et_class_f1': et_class_f1,
+        'et_class_report': et_class_report,
+        'et_acc_score': et_acc_score,
+        'et_prec_score': et_prec_score,
+        'et_rec_score': et_rec_score,
+        'et_f1': et_f1,
+        'et_confusion_matrix': et_conf_mat,
+
+        'xg_class_f1': xg_class_f1,
+        'xg_class_report': xg_class_report,
+        'xg_acc_score': xg_acc_score,
+        'xg_prec_score': xg_prec_score,
+        'xg_rec_score': xg_rec_score,
+        'xg_f1': xg_f1,
+        'xg_confusion_matrix': xg_conf_mat,
+
+        'stack_class_f1': stack_class_f1,
+        'stack_class_report': stack_class_report,
+        'stack_acc_score': stack_acc_score,
+        'stack_prec_score': stack_prec_score,
+        'stack_rec_score': stack_rec_score,
+        'stack_f1': stack_f1,
+
+        'runtime' : elapsed_time.seconds
+    }
+
+    return JsonResponse(data)
+
+@csrf_exempt
 def treebased_run(request):
-    pass
+    dataset = request.GET.get('dataset')
+    test_size = float(request.GET.get('test_size'))
+    feature_selection = float(request.GET.get('feature_selection'))
+    feature_selection_threshold = float(request.GET.get('feature_selection_threshold'))
+    dt_criterion = request.GET.get('dt_criterion')
+    dt_splitter = request.GET.get('dt_splitter')
+    dt_max_depth = request.GET.get('dt_max_depth')
+    dt_min_samples_split = request.GET.get('dt_min_samples_split')
+    dt_min_samples_leaf = request.GET.get('dt_min_samples_leaf')
+    dt_min_weight_fraction_leaf = float(request.GET.get('dt_min_weight_fraction_leaf'))
+    dt_max_features = request.GET.get('dt_max_features')
+    dt_random_state = int(request.GET.get('dt_random_state'))
+    dt_max_leaf_nodes = request.GET.get('dt_max_leaf_nodes')
+    xg_eta = float(request.GET.get('xg_eta'))
+    xg_max_depth = request.GET.get('xg_max_depth')
+    xg_subsample = float(request.GET.get('xg_subsample'))
+    xg_lambda = int(request.GET.get('xg_lambda'))
+    xg_alpha = int(request.GET.get('xg_alpha'))
+    xg_gamma = int(request.GET.get('xg_gamma'))
+    xg_colsample_bytree = float(request.GET.get('xg_colsample_bytree'))
+    xg_min_child_weight = int(request.GET.get('xg_min_child_weight'))
+    xg_n_estimators = int(request.GET.get('xg_n_estimators'))
+    rf_n_estimators = int(request.GET.get('rf_n_estimators'))
+    rf_criterion = request.GET.get('rf_criterion')
+    rf_max_depth = request.GET.get('rf_max_depth')
+    rf_min_samples_split = request.GET.get('rf_min_samples_split')
+    rf_min_samples_leaf = request.GET.get('rf_min_samples_leaf')
+    rf_min_weight_fractions_leaf = float(request.GET.get('rf_min_weight_fractions_leaf'))
+    rf_max_features = request.GET.get('rf_max_features')
+    rf_max_leaf_nodes = request.GET.get('rf_max_leaf_nodes')
+    rf_random_state = int(request.GET.get('rf_random_state'))
+    et_n_estimators = int(request.GET.get('et_n_estimators'))
+    et_criterion = request.GET.get('et_criterion')
+    et_max_depth = request.GET.get('et_max_depth')
+    et_min_samples_split = request.GET.get('et_min_samples_split')
+    et_min_samples_leaf = request.GET.get('et_min_samples_leaf')
+    et_min_weight_fractions_leaf = float(request.GET.get('et_min_weight_fractions_leaf'))
+    et_max_features = request.GET.get('et_max_features')
+    et_max_leaf_nodes = request.GET.get('et_max_leaf_nodes')
+    et_random_state = int(request.GET.get('et_random_state'))
+
+    time_A = datetime.now()
+
+    dt_class_f1, dt_class_report, dt_acc_score, dt_prec_score, dt_rec_score, dt_f1, dt_conf_mat, rf_class_f1, rf_class_report, rf_acc_score, rf_prec_score, rf_rec_score, rf_f1, rf_conf_mat, et_class_f1, et_class_report, et_acc_score, et_prec_score, et_rec_score, et_f1, et_conf_mat, xg_class_f1, xg_class_report, xg_acc_score, xg_prec_score, xg_rec_score, xg_f1, xg_conf_mat, stack_class_f1, stack_class_report, stack_acc_score, stack_prec_score, stack_rec_score, stack_f1, stack_conf_mat = runTreeBased(test_size, feature_selection, dataset, feature_selection_threshold, dt_criterion, dt_splitter, dt_max_depth, dt_min_samples_split, dt_min_samples_leaf, dt_min_weight_fraction_leaf, dt_max_features, dt_random_state, dt_max_leaf_nodes, rf_n_estimators, rf_criterion, rf_max_depth, rf_min_samples_split, rf_min_samples_leaf, rf_min_weight_fractions_leaf, rf_max_features, rf_max_leaf_nodes, rf_random_state, et_n_estimators, et_criterion, et_max_depth, et_min_samples_split, et_min_samples_leaf, et_min_weight_fractions_leaf, et_max_features, et_max_leaf_nodes, et_random_state, xg_eta, xg_max_depth, xg_subsample, xg_lambda, xg_alpha, xg_gamma, xg_colsample_bytree, xg_min_child_weight, xg_n_estimators)
+
+    dt_class_f1 = dt_class_f1.tolist()
+    rf_class_f1 = rf_class_f1.tolist()
+    et_class_f1 = et_class_f1.tolist()
+    xg_class_f1 = xg_class_f1.tolist()
+    stack_class_f1 = stack_class_f1.tolist()
+    dt_conf_mat = dt_conf_mat.tolist()
+    et_conf_mat = et_conf_mat.tolist()
+    rf_conf_mat = rf_conf_mat.tolist()
+    xg_conf_mat = xg_conf_mat.tolist()
+
+    time_B = datetime.now()
+    elapsed_time = time_B - time_A
+
+    data = {
+        'dt_class_f1': dt_class_f1,
+        'dt_class_report': dt_class_report,
+        'dt_acc_score': dt_acc_score,
+        'dt_prec_score': dt_prec_score,
+        'dt_rec_score': dt_rec_score,
+        'dt_f1': dt_f1,
+        'dt_confusion_matrix': dt_conf_mat,
+
+        'rf_class_f1': rf_class_f1,
+        'rf_class_report': rf_class_report,
+        'rf_acc_score': rf_acc_score,
+        'rf_prec_score': rf_prec_score,
+        'rf_rec_score': rf_rec_score,
+        'rf_f1': rf_f1,
+        'rf_confusion_matrix': rf_conf_mat,
+
+        'et_class_f1': et_class_f1,
+        'et_class_report': et_class_report,
+        'et_acc_score': et_acc_score,
+        'et_prec_score': et_prec_score,
+        'et_rec_score': et_rec_score,
+        'et_f1': et_f1,
+        'et_confusion_matrix': et_conf_mat,
+
+        'xg_class_f1': xg_class_f1,
+        'xg_class_report': xg_class_report,
+        'xg_acc_score': xg_acc_score,
+        'xg_prec_score': xg_prec_score,
+        'xg_rec_score': xg_rec_score,
+        'xg_f1': xg_f1,
+        'xg_confusion_matrix': xg_conf_mat,
+
+        'stack_class_f1': stack_class_f1,
+        'stack_class_report': stack_class_report,
+        'stack_acc_score': stack_acc_score,
+        'stack_prec_score': stack_prec_score,
+        'stack_rec_score': stack_rec_score,
+        'stack_f1': stack_f1,
+
+        'runtime' : elapsed_time.seconds
+    }
+
+    return JsonResponse(data)
+
+
+
+

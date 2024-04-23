@@ -1,20 +1,6 @@
 import warnings
 warnings.filterwarnings("ignore")
 
-import numpy as np
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-from sklearn.preprocessing import LabelEncoder
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, precision_recall_fscore_support
-from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, DecisionTreeClassifier
-import xgboost as xgb
-from imblearn.over_sampling import SMOTE
-
-
-import numpy as np
-import pandas as pd
 from sklearn.model_selection import train_test_split
 
 def calculate_feature_importance(dt, rf, et, xg, df):
@@ -52,9 +38,10 @@ def select_important_features(feature_importance, df, threshold=0.9):
     X_fs = df[selected_features].values
     return X_fs, selected_features
 
-def split_dataset(X, y):
+def split_dataset(X, y, test_size):
     """
     Splits the dataset into training and test sets.
     """
-    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.8, test_size=0.2, random_state=0, stratify=y)
+    train_size = 1 - test_size
+    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train_size, test_size=test_size, random_state=0, stratify=y)
     return X_train, X_test, y_train, y_test
