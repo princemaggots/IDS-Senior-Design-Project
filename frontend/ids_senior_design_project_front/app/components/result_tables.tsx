@@ -23,7 +23,7 @@ export default function ResultTables({data, pastData}: {data: any, pastData?: an
             )}
             {
                 data.map((currentData: any, index: number) => {
-                    const correspondingPastData = pastData[index];
+                    const correspondingPastData = pastData && pastData[index];
                     return <ResultPane key={index} data={currentData} pastData={correspondingPastData} selected={selected}/>;
                 }
             )}

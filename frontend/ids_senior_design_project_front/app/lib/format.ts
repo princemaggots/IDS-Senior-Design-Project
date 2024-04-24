@@ -75,6 +75,198 @@ export const formatReturnedLCCDEData = (data: any) => {
         ];
     }
 }
+export const formatReturnedTreeBasedData = (data: any) => {
+    if (data !== null) {
+        const parsedData = JSON.parse(data);
+        console.log(parsedData)
+        return [
+            {
+                model: 'XGBoost',
+                acc_score: parsedData.xg_acc_score,
+                class_f1: [
+                    {attackClass: '0 BENIGN', value: parsedData.xg_class_f1[0]},
+                    {attackClass: '1 Bot', value: parsedData.xg_class_f1[1]},
+                    {attackClass: '2 Brute Force', value: parsedData.xg_class_f1[2]},
+                    {attackClass: '3 DoS', value: parsedData.xg_class_f1[3]},
+                    {attackClass: '4 Infiltration', value: parsedData.xg_class_f1[4]},
+                    {attackClass: '5 PortScan', value: parsedData.xg_class_f1[5]},
+                    {attackClass: '6 WebAttack', value: parsedData.xg_class_f1[6]},
+                ],
+                class_report: parsedData.xg_class_report,
+                confusion_matrix: parsedData.xg_confusion_matrix,
+                f1: parsedData.xg_f1,
+                prec_score: parsedData.xg_prec_score,
+                rec_score: parsedData.xg_rec_score
+            },
+            {
+                model: 'Decision Tree',
+                acc_score: parsedData.dt_acc_score,
+                class_f1: [
+                    {attackClass: '0 BENIGN', value: parsedData.dt_class_f1[0]},
+                    {attackClass: '1 Bot', value: parsedData.dt_class_f1[1]},
+                    {attackClass: '2 Brute Force', value: parsedData.dt_class_f1[2]},
+                    {attackClass: '3 DoS', value: parsedData.dt_class_f1[3]},
+                    {attackClass: '4 Infiltration', value: parsedData.dt_class_f1[4]},
+                    {attackClass: '5 PortScan', value: parsedData.dt_class_f1[5]},
+                    {attackClass: '6 WebAttack', value: parsedData.dt_class_f1[6]},
+                ],
+                class_report: parsedData.dt_class_report,
+                confusion_matrix: parsedData.dt_confusion_matrix,
+                f1: parsedData.dt_f1,
+                prec_score: parsedData.dt_prec_score,
+                rec_score: parsedData.dt_rec_score
+            },
+            {
+                model: 'Random Forest',
+                acc_score: parsedData.rf_acc_score,
+                class_f1: [
+                    {attackClass: '0 BENIGN', value: parsedData.rf_class_f1[0]},
+                    {attackClass: '1 Bot', value: parsedData.rf_class_f1[1]},
+                    {attackClass: '2 Brute Force', value: parsedData.rf_class_f1[2]},
+                    {attackClass: '3 DoS', value: parsedData.rf_class_f1[3]},
+                    {attackClass: '4 Infiltration', value: parsedData.rf_class_f1[4]},
+                    {attackClass: '5 PortScan', value: parsedData.rf_class_f1[5]},
+                    {attackClass: '6 WebAttack', value: parsedData.rf_class_f1[6]},
+                ],
+                class_report: parsedData.rf_class_report,
+                confusion_matrix: parsedData.rf_confusion_matrix,
+                f1: parsedData.rf_f1,
+                prec_score: parsedData.rf_prec_score,
+                rec_score: parsedData.rf_rec_score
+            },
+            {
+                model: 'Extra Tree',
+                acc_score: parsedData.et_acc_score,
+                class_f1: [
+                    {attackClass: '0 BENIGN', value: parsedData.et_class_f1[0]},
+                    {attackClass: '1 Bot', value: parsedData.et_class_f1[1]},
+                    {attackClass: '2 Brute Force', value: parsedData.et_class_f1[2]},
+                    {attackClass: '3 DoS', value: parsedData.et_class_f1[3]},
+                    {attackClass: '4 Infiltration', value: parsedData.et_class_f1[4]},
+                    {attackClass: '5 PortScan', value: parsedData.et_class_f1[5]},
+                    {attackClass: '6 WebAttack', value: parsedData.et_class_f1[6]},
+                ],
+                class_report: parsedData.et_class_report,
+                confusion_matrix: parsedData.et_confusion_matrix,
+                f1: parsedData.et_f1,
+                prec_score: parsedData.et_prec_score,
+                rec_score: parsedData.et_rec_score
+            },
+            {
+                model: 'Stack',
+                acc_score: parsedData.stack_acc_score,
+                class_f1: [
+                    {attackClass: '0 BENIGN', value: parsedData.stack_class_f1[0]},
+                    {attackClass: '1 Bot', value: parsedData.stack_class_f1[1]},
+                    {attackClass: '2 Brute Force', value: parsedData.stack_class_f1[2]},
+                    {attackClass: '3 DoS', value: parsedData.stack_class_f1[3]},
+                    {attackClass: '4 Infiltration', value: parsedData.stack_class_f1[4]},
+                    {attackClass: '5 PortScan', value: parsedData.stack_class_f1[5]},
+                    {attackClass: '6 WebAttack', value: parsedData.stack_class_f1[6]},
+                ],
+                f1: parsedData.stack_f1,
+                prec_score: parsedData.stack_prec_score,
+                rec_score: parsedData.stack_rec_score
+            }
+        ];
+    }
+}
+
+export const formatReturnedMthData = (data: any) => {
+    if (data !== null) {
+        const parsedData = JSON.parse(data);
+        return [
+            {
+                model: 'XGBoost',
+                acc_score: parsedData.xg_acc_score,
+                class_f1: [
+                    {attackClass: '0 BENIGN', value: parsedData.xg_class_f1[0]},
+                    {attackClass: '1 Bot', value: parsedData.xg_class_f1[1]},
+                    {attackClass: '2 Brute Force', value: parsedData.xg_class_f1[2]},
+                    {attackClass: '3 DoS', value: parsedData.xg_class_f1[3]},
+                    {attackClass: '4 Infiltration', value: parsedData.xg_class_f1[4]},
+                    {attackClass: '5 PortScan', value: parsedData.xg_class_f1[5]},
+                    {attackClass: '6 WebAttack', value: parsedData.xg_class_f1[6]},
+                ],
+                class_report: parsedData.xg_class_report,
+                confusion_matrix: parsedData.xg_confusion_matrix,
+                f1: parsedData.xg_f1,
+                prec_score: parsedData.xg_prec_score,
+                rec_score: parsedData.xg_rec_score
+            },
+            {
+                model: 'Decision Tree',
+                acc_score: parsedData.dt_acc_score,
+                class_f1: [
+                    {attackClass: '0 BENIGN', value: parsedData.dt_class_f1[0]},
+                    {attackClass: '1 Bot', value: parsedData.dt_class_f1[1]},
+                    {attackClass: '2 Brute Force', value: parsedData.dt_class_f1[2]},
+                    {attackClass: '3 DoS', value: parsedData.dt_class_f1[3]},
+                    {attackClass: '4 Infiltration', value: parsedData.dt_class_f1[4]},
+                    {attackClass: '5 PortScan', value: parsedData.dt_class_f1[5]},
+                    {attackClass: '6 WebAttack', value: parsedData.dt_class_f1[6]},
+                ],
+                class_report: parsedData.dt_class_report,
+                confusion_matrix: parsedData.dt_confusion_matrix,
+                f1: parsedData.dt_f1,
+                prec_score: parsedData.dt_prec_score,
+                rec_score: parsedData.dt_rec_score
+            },
+            {
+                model: 'Random Forest',
+                acc_score: parsedData.rf_acc_score,
+                class_f1: [
+                    {attackClass: '0 BENIGN', value: parsedData.rf_class_f1[0]},
+                    {attackClass: '1 Bot', value: parsedData.rf_class_f1[1]},
+                    {attackClass: '2 Brute Force', value: parsedData.rf_class_f1[2]},
+                    {attackClass: '3 DoS', value: parsedData.rf_class_f1[3]},
+                    {attackClass: '4 Infiltration', value: parsedData.rf_class_f1[4]},
+                    {attackClass: '5 PortScan', value: parsedData.rf_class_f1[5]},
+                    {attackClass: '6 WebAttack', value: parsedData.rf_class_f1[6]},
+                ],
+                class_report: parsedData.rf_class_report,
+                confusion_matrix: parsedData.rf_confusion_matrix,
+                f1: parsedData.rf_f1,
+                prec_score: parsedData.rf_prec_score,
+                rec_score: parsedData.rf_rec_score
+            },
+            {
+                model: 'Extra Tree',
+                acc_score: parsedData.et_acc_score,
+                class_f1: [
+                    {attackClass: '0 BENIGN', value: parsedData.et_class_f1[0]},
+                    {attackClass: '1 Bot', value: parsedData.et_class_f1[1]},
+                    {attackClass: '2 Brute Force', value: parsedData.et_class_f1[2]},
+                    {attackClass: '3 DoS', value: parsedData.et_class_f1[3]},
+                    {attackClass: '4 Infiltration', value: parsedData.et_class_f1[4]},
+                    {attackClass: '5 PortScan', value: parsedData.et_class_f1[5]},
+                    {attackClass: '6 WebAttack', value: parsedData.et_class_f1[6]},
+                ],
+                class_report: parsedData.et_class_report,
+                confusion_matrix: parsedData.et_confusion_matrix,
+                f1: parsedData.et_f1,
+                prec_score: parsedData.et_prec_score,
+                rec_score: parsedData.et_rec_score
+            },
+            {
+                model: 'Stack',
+                acc_score: parsedData.stack_acc_score,
+                class_f1: [
+                    {attackClass: '0 BENIGN', value: parsedData.stack_class_f1[0]},
+                    {attackClass: '1 Bot', value: parsedData.stack_class_f1[1]},
+                    {attackClass: '2 Brute Force', value: parsedData.stack_class_f1[2]},
+                    {attackClass: '3 DoS', value: parsedData.stack_class_f1[3]},
+                    {attackClass: '4 Infiltration', value: parsedData.stack_class_f1[4]},
+                    {attackClass: '5 PortScan', value: parsedData.stack_class_f1[5]},
+                    {attackClass: '6 WebAttack', value: parsedData.stack_class_f1[6]},
+                ],
+                f1: parsedData.stack_f1,
+                prec_score: parsedData.stack_prec_score,
+                rec_score: parsedData.stack_rec_score
+            }
+        ];
+    }
+}
 
 export const replaceDefault = (data: any) => {
     const parsedData = JSON.parse(data);

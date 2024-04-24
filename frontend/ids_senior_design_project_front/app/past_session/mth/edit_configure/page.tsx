@@ -1,17 +1,29 @@
 'use client'
 
-import Form from '@/app/components/config_form';
+import ConfigForm from '@/app/components/config_form';
 import Button from '@mui/material/Button';
 import { mthInputFields } from '@/app/lib/data';
 import { useState } from 'react';
 import CircularIndeterminate from '@/app/components/circular_indeterminate';
 import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { datasetFields } from '@/app/lib/data';
 
-export default function Page(){
+export default function Page() {
     const [isLoading, setIsLoading] = useState(false);
     const [loadingMessage, setLoadingMessage] = useState('Training model, please wait...');
     const router = useRouter();
+    const searchParams = useSearchParams()
+    const inputData = searchParams.get('input');
+    const pastOutputData = searchParams.get('output')
+
+    const validJSON = inputData.replace(/'/g, '"');
+    const inputObj = JSON.parse(validJSON);
+    mthInputFields.map(field => {
+        field.defaultValue = inputObj[field.name];
+    });
+
+    datasetFields.defaultValue = inputObj.dataset;
 
     const handleSubmit = async (formData: any) => {
         setIsLoading(true);
@@ -33,7 +45,7 @@ export default function Page(){
         
             const data = await response.json();
 
-            router.push(`/new_session/mth/result?output=${encodeURIComponent(JSON.stringify(data))}&input=${encodeURIComponent(JSON.stringify(formData))}`);        
+            router.push(`/past_session/mth/result?output=${encodeURIComponent(JSON.stringify(data))}&input=${encodeURIComponent(JSON.stringify(formData))}&pastOutputData=${encodeURIComponent(pastOutputData)}`);        
         } catch (error) {
             console.error('Error submitting form:', error);
         } finally {
@@ -44,9 +56,9 @@ export default function Page(){
     return (
         <div>
             <p className="text-xl mb-4">
-                <strong>Configure Mth</strong>
+                <strong>Edit Configuration for Mth</strong>
             </p>
-            <Form datasetFields={datasetFields} dataInputFields={mthInputFields} onSubmit={handleSubmit} />
+            <ConfigForm datasetFields={datasetFields} dataInputFields={mthInputFields} onSubmit={handleSubmit} />
             <Button variant="outlined" href="/new_session">
                 Go Back
             </Button>
@@ -57,5 +69,5 @@ export default function Page(){
                 </div>
             )}
         </div>
-    );
+    )
 }

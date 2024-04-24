@@ -40,7 +40,7 @@ def runLCCDE(dataset, test_size, random_state, sampling_strat2, sampling_strat4,
 
 def runMTH(test_size, dataset, feature_selection_threshold, fcbf_k, dt_criterion, dt_splitter, dt_max_depth, dt_min_samples_split, dt_min_samples_leaf, dt_min_weight_fraction_leaf, dt_max_features, dt_random_state, dt_max_leaf_nodes, rf_n_estimators, rf_criterion, rf_max_depth, rf_min_samples_split, rf_min_samples_leaf, rf_min_weight_fractions_leaf, rf_max_features, rf_max_leaf_nodes, rf_random_state, et_n_estimators, et_criterion, et_max_depth, et_min_samples_split, et_min_samples_leaf, et_min_weight_fractions_leaf, et_max_features, et_max_leaf_nodes, et_random_state, xg_eta, xg_max_depth, xg_subsample, xg_lambda, xg_alpha, xg_gamma, xg_colsample_bytree, xg_min_child_weight, xg_n_estimators):
     if dataset == "CICIDS2017":
-        filepath = "./engine_functions/engine/data/CICIDS2017_sample.csv"
+        filepath = "./engine_functions/engine/data/CICIDS2017_sample_km.csv"
     else:
         filepath = "./engine_functions/engine/data/CICIDS2017_sample_km.csv"
         
@@ -92,12 +92,12 @@ def runMTH(test_size, dataset, feature_selection_threshold, fcbf_k, dt_criterion
     else:
         rf_max_features = float(rf_max_features)
     
-    dt_min_samples_split = float(dt_min_samples_split) if "." in dt_min_samples_split else int(dt_min_samples_split)
-    dt_min_samples_leaf = float(dt_min_samples_leaf) if "." in dt_min_samples_leaf else int(dt_min_samples_leaf)
-    et_min_samples_split = float(et_min_samples_split) if "." in et_min_samples_split else int(et_min_samples_split)
-    et_min_samples_leaf = float(et_min_samples_leaf) if "." in et_min_samples_leaf else int(et_min_samples_leaf)
-    rf_min_samples_split = float(rf_min_samples_split) if "." in rf_min_samples_split else int(rf_min_samples_split)
-    rf_min_samples_leaf = float(rf_min_samples_leaf) if "." in rf_min_samples_leaf else int(rf_min_samples_leaf)
+    dt_min_samples_split = float(dt_min_samples_split) if "." in str(dt_min_samples_split) else int(dt_min_samples_split)
+    dt_min_samples_leaf = float(dt_min_samples_leaf) if "." in str(dt_min_samples_leaf) else int(dt_min_samples_leaf)
+    et_min_samples_split = float(et_min_samples_split) if "." in str(et_min_samples_split) else int(et_min_samples_split)
+    et_min_samples_leaf = float(et_min_samples_leaf) if "." in str(et_min_samples_leaf) else int(et_min_samples_leaf)
+    rf_min_samples_split = float(rf_min_samples_split) if "." in str(rf_min_samples_split) else int(rf_min_samples_split)
+    rf_min_samples_leaf = float(rf_min_samples_leaf) if "." in str(rf_min_samples_leaf) else int(rf_min_samples_leaf)
 
     dt, dt_predict_X_train, dt_predict_X_test, dt_class_f1, dt_class_report, dt_acc_score, dt_prec_score, dt_rec_score, dt_f1, dt_conf_mat = train_decision_tree(X_train, y_train, X_test, y_test, dt_criterion, dt_splitter, dt_max_depth, dt_min_samples_split, dt_min_samples_leaf, dt_min_weight_fraction_leaf, dt_max_features, dt_random_state, dt_max_leaf_nodes)
     rf, rf_predict_X_train, rf_predict_X_test, rf_class_f1, rf_class_report, rf_acc_score, rf_prec_score, rf_rec_score, rf_f1, rf_conf_mat = train_random_forest(X_train, y_train, X_test, y_test, rf_n_estimators, rf_criterion, rf_max_depth, rf_min_samples_split, rf_min_samples_leaf, rf_min_weight_fractions_leaf, rf_max_features, rf_max_leaf_nodes, rf_random_state)
@@ -114,7 +114,7 @@ def runTreeBased(test_size, feature_selection, dataset, feature_selection_thresh
     # clarify some params
     
     if dataset == "CICIDS2017":
-        filepath = "./engine_functions/engine/data/CICIDS2017_sample.csv"
+        filepath = "./engine_functions/engine/data/CICIDS2017_sample_km.csv"
     else:
         filepath = "./engine_functions/engine/data/CICIDS2017_sample_km.csv"
     
@@ -169,12 +169,12 @@ def runTreeBased(test_size, feature_selection, dataset, feature_selection_thresh
     else:
         rf_max_features = float(rf_max_features)
     
-    dt_min_samples_split = float(dt_min_samples_split) if "." in dt_min_samples_split else int(dt_min_samples_split)
-    dt_min_samples_leaf = float(dt_min_samples_leaf) if "." in dt_min_samples_leaf else int(dt_min_samples_leaf)
-    et_min_samples_split = float(et_min_samples_split) if "." in et_min_samples_split else int(et_min_samples_split)
-    et_min_samples_leaf = float(et_min_samples_leaf) if "." in et_min_samples_leaf else int(et_min_samples_leaf)
-    rf_min_samples_split = float(rf_min_samples_split) if "." in rf_min_samples_split else int(rf_min_samples_split)
-    rf_min_samples_leaf = float(rf_min_samples_leaf) if "." in rf_min_samples_leaf else int(rf_min_samples_leaf)
+    dt_min_samples_split = float(dt_min_samples_split) if "." in str(dt_min_samples_split) else int(dt_min_samples_split)
+    dt_min_samples_leaf = float(dt_min_samples_leaf) if "." in str(dt_min_samples_leaf) else int(dt_min_samples_leaf)
+    et_min_samples_split = float(et_min_samples_split) if "." in str(et_min_samples_split) else int(et_min_samples_split)
+    et_min_samples_leaf = float(et_min_samples_leaf) if "." in str(et_min_samples_leaf) else int(et_min_samples_leaf)
+    rf_min_samples_split = float(rf_min_samples_split) if "." in str(rf_min_samples_split) else int(rf_min_samples_split)
+    rf_min_samples_leaf = float(rf_min_samples_leaf) if "." in str(rf_min_samples_leaf) else int(rf_min_samples_leaf)
 
 
     df, X_train, X_test, y_train, y_test = split_train(filepath=filepath, test_size=test_size)

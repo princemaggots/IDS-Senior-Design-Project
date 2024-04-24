@@ -20,7 +20,7 @@ def split_data(dataset, test_size=0.2, random_state=0):
     - y_test: pandas.Series, the testing target variable.
     """
     if dataset == "CICIDS2017":
-        filepath = "./engine_functions/engine/data/CICIDS2017_sample.csv"
+        filepath = "./engine_functions/engine/data/CICIDS2017_sample_km.csv"
     else:
         filepath = "./engine_functions/engine/data/CICIDS2017_sample_km.csv"
     df = pd.read_csv(filepath)
