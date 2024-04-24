@@ -6,7 +6,7 @@ import { models } from '../lib/data';
 export default function page(){
     return (
         <div>
-            <p className="text-xl"><strong>Select algorithm to test</strong></p>
+            <p className="text-xl"><strong>Select a model to test</strong></p>
             {models.map((model, index) => {
                 return (
                     <Card key={index} className='mt-8'>

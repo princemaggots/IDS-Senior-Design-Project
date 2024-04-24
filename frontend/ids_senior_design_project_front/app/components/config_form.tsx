@@ -16,7 +16,7 @@ export default function ConfigForm({datasetFields, dataInputFields, onSubmit}: {
     }, {});
 
     const [formState, setFormState] = useState({
-        dataset: 'CICIDS2017',
+        dataset: 'Randomly Sampled',
         model: model,
         ...initialFormState,
     });
